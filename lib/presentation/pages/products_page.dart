@@ -16,8 +16,13 @@ class _ProductsPageState extends State<ProductsPage> {
     return Scaffold(
       body: SafeArea(
         minimum: EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
-        child: ListView.builder(
+        child: ListView.separated(
           itemCount: widget.products.length,
+          separatorBuilder: (BuildContext context, int index) {
+            return const SizedBox(
+              height: 30,
+            );
+          },
           itemBuilder: (BuildContext context, int index) {
             return ProductCard(product: widget.products[index]);
           },
