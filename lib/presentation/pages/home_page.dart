@@ -6,6 +6,7 @@ import 'package:flutter_assignment/data/models/product.dart';
 import 'package:flutter_assignment/data/services/sqflite_service.dart';
 import 'package:flutter_assignment/data/services/userpref_service.dart';
 import 'package:flutter_assignment/presentation/pages/products_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -32,6 +33,15 @@ class _HomepageState extends State<Homepage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Home',
+          style: GoogleFonts.ubuntu(
+            fontSize: 28,
+          ),
+        ),
+      ),
       body: Center(
         child: isLoading
             ? CircularProgressIndicator()
@@ -55,9 +65,12 @@ class _HomepageState extends State<Homepage> {
                         builder: (context) => ProductsPage(),
                       ));
                 },
-                child: const Text(
+                child: Text(
                   'Load Data',
-                  style: TextStyle(color: Colors.white, fontSize: 28.0),
+                  style: GoogleFonts.ubuntu(
+                    fontSize: 28,
+                    color: Colors.white,
+                  ),
                 ),
                 style: TextButton.styleFrom(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),

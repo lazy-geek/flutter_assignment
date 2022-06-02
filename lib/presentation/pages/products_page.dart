@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_assignment/data/models/product.dart';
 import 'package:flutter_assignment/data/services/sqflite_service.dart';
 import 'package:flutter_assignment/presentation/widgets/product_card.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sqflite/sqflite.dart';
 
 class ProductsPage extends StatefulWidget {
@@ -15,6 +16,15 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          'Products',
+          style: GoogleFonts.ubuntu(
+            fontSize: 28,
+          ),
+        ),
+      ),
       body: SafeArea(
         minimum: EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
         child: FutureBuilder(
@@ -41,7 +51,12 @@ class _ProductsPageState extends State<ProductsPage> {
               );
             } else {
               return Center(
-                child: Text("something went wrong"),
+                child: Text(
+                  "something went wrong",
+                  style: GoogleFonts.ubuntu(
+                    fontSize: 18,
+                  ),
+                ),
               );
             }
           },
