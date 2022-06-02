@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_assignment/data/models/product.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -11,11 +12,16 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  Future readJson() async {
+  Future<List<Product>> readJson() async {
     final String response = await rootBundle.loadString('assets/data.json');
     final data = await jsonDecode(response);
     print(data['products']);
-    return data['products'];
+
+    List<Product> products = [];
+    for (var item in data['products']) {
+      products.add(Product.fromJson(item));
+    }
+    return products;
   }
 
   @override
@@ -24,7 +30,7 @@ class _HomepageState extends State<Homepage> {
       body: Center(
         child: TextButton(
           onPressed: () async {
-            var data = await readJson();
+            List<Product> data = await readJson();
             // save data to database
           },
           child: const Text(
