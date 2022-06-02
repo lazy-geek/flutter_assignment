@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_assignment/data/models/product.dart';
+import 'package:flutter_assignment/presentation/widgets/product_card.dart';
 
 class ProductsPage extends StatefulWidget {
   final List<Product> products;
@@ -13,13 +14,14 @@ class _ProductsPageState extends State<ProductsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: ListView.builder(
-        itemCount: widget.products.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Container(
-            child: Text(widget.products[index].productName),
-          );
-        },
+      body: SafeArea(
+        minimum: EdgeInsets.only(left: 25.0, right: 25.0, top: 40),
+        child: ListView.builder(
+          itemCount: widget.products.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ProductCard(product: widget.products[index]);
+          },
+        ),
       ),
     );
   }
