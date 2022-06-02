@@ -15,6 +15,7 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
+  bool isLoading = false;
   Future<List<Product>> readJson() async {
     final String response = await rootBundle.loadString('assets/data.json');
     final data = await jsonDecode(response);
@@ -24,6 +25,7 @@ class _HomepageState extends State<Homepage> {
     for (var item in data['products']) {
       products.add(Product.fromJson(item));
     }
+
     return products;
   }
 
@@ -31,36 +33,43 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: TextButton(
-          onPressed: () async {
-            List<Product> data = await readJson();
-            //TODO: save data to database
-            bool flag = await UserPrefService.instance.isDataInserted();
-            if (!flag) {
-              await SqfLiteService.instance.addProducts(data);
-              await UserPrefService.instance.setDataInserted(true);
-            }
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => ProductsPage(),
-                ));
-          },
-          child: const Text(
-            'Load Data',
-            style: TextStyle(color: Colors.white, fontSize: 28.0),
-          ),
-          style: TextButton.styleFrom(
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-            backgroundColor: const Color.fromARGB(255, 157, 11, 254),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(5.0),
-              side: const BorderSide(
-                color: Color.fromARGB(255, 157, 11, 254),
+        child: isLoading
+            ? CircularProgressIndicator()
+            : TextButton(
+                onPressed: () async {
+                  setState(() {
+                    isLoading = true;
+                  });
+                  bool flag = await UserPrefService.instance.isDataInserted();
+                  if (!flag) {
+                    List<Product> data = await readJson();
+                    await SqfLiteService.instance.addProducts(data);
+                    await UserPrefService.instance.setDataInserted(true);
+                  }
+                  setState(() {
+                    isLoading = false;
+                  });
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProductsPage(),
+                      ));
+                },
+                child: const Text(
+                  'Load Data',
+                  style: TextStyle(color: Colors.white, fontSize: 28.0),
+                ),
+                style: TextButton.styleFrom(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  backgroundColor: const Color.fromARGB(255, 157, 11, 254),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5.0),
+                    side: const BorderSide(
+                      color: Color.fromARGB(255, 157, 11, 254),
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }

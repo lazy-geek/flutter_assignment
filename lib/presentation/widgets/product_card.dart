@@ -33,15 +33,20 @@ class _ProductCardState extends State<ProductCard> {
             child: CachedNetworkImage(
               fit: BoxFit.cover,
               // height: 200,
+
               alignment: Alignment.topCenter,
               width: double.infinity,
               imageUrl: widget.product.productUrl,
               placeholder: (context, url) => Container(
                 color: Color(0xFFe2e2e2),
+                child: Center(child: CircularProgressIndicator()),
                 width: double.maxFinite,
                 height: double.maxFinite,
               ),
-              errorWidget: (context, url, error) => Icon(Icons.error),
+              errorWidget: (context, url, error) => ListTile(
+                title: Text(url),
+                subtitle: Text(error.toString()),
+              ),
             ),
           ),
           Container(
