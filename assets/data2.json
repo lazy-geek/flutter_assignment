@@ -1,0 +1,18 @@
+{
+    "products": [
+        {
+            "id": 1,
+            "productName": "Product A",
+            "productUrl": "http://lh6.ggpht.com/-UGAXxvPbr98/S-jGZbyMIPI/AAAAAAAACjk/cDbltIKSaEs/s1600/",
+            "productRating": 4,
+            "productDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id auctor libero, sit amet hendrerit nisl. Duis neque mi, rutrum nec ante sed, pellentesque congue sem."
+        },
+        {
+            "id": 2,
+            "productName": "Product B",
+            "productUrl": "http://lh6.ggpht.com/-UGAXxvPbr98/S-jGZbyMIPI/AAAAAAAACjk/cDbltIKSaEs/s1600/",
+            "productRating": 4,
+            "productDescription":"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec id auctor libero, sit amet hendrerit nisl. Duis neque mi, rutrum nec ante sed, pellentesque congue sem."
+        }
+    ]
+}

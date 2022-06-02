@@ -3,6 +3,8 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_assignment/data/models/product.dart';
+import 'package:flutter_assignment/data/services/sqflite_service.dart';
+import 'package:flutter_assignment/data/services/userpref_service.dart';
 import 'package:flutter_assignment/presentation/pages/products_page.dart';
 
 class Homepage extends StatefulWidget {
@@ -33,10 +35,15 @@ class _HomepageState extends State<Homepage> {
           onPressed: () async {
             List<Product> data = await readJson();
             //TODO: save data to database
+            bool flag = await UserPrefService.instance.isDataInserted();
+            if (!flag) {
+              await SqfLiteService.instance.addProducts(data);
+              await UserPrefService.instance.setDataInserted(true);
+            }
             Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ProductsPage(products: data),
+                  builder: (context) => ProductsPage(),
                 ));
           },
           child: const Text(
