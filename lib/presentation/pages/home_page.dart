@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_assignment/data/models/product.dart';
+import 'package:flutter_assignment/presentation/pages/products_page.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({Key? key}) : super(key: key);
@@ -31,7 +32,12 @@ class _HomepageState extends State<Homepage> {
         child: TextButton(
           onPressed: () async {
             List<Product> data = await readJson();
-            // save data to database
+            //TODO: save data to database
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProductsPage(products: data),
+                ));
           },
           child: const Text(
             'Load Data',
